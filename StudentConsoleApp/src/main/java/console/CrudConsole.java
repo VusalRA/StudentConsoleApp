@@ -152,36 +152,71 @@ public class CrudConsole {
     public void uCrud() {
         crud.getStudents();
         System.out.println("Enter ID for Update: ");
-        int id = scanner.nextInt();
-        for (Student student : crud.students) {
-            if (student.getId() == id) {
-                System.out.println("Do you want to change name? 1 yes| 2 no");
-                if (isChange()) {
-                    System.out.println("Enter Student Name: ");
-                    student.setName(scanner.next());
+        try {
+            int id = scanner.nextInt();
+            for (Student student : crud.students) {
+                if (student.getId() == id) {
+                    System.out.println("Do you want to change name? 1 yes| 2 no");
+                    if (isChange()) {
+                        String name = scanner.next();
+                        while (!Validation.nameValidation(name)) {
+                            System.out.println("Incorrect name: ");
+                            System.out.println("Example: Vusal");
+                            name = scanner.next();
+                        }
+                        student.setName(name);
+                    }
+                    System.out.println("Do you want to change surname? 1 yes| 2 no");
+                    if (isChange()) {
+                        System.out.println("Enter Surname: ");
+                        String surname = scanner.next();
+                        while (!Validation.nameValidation(surname)) {
+                            System.out.println("Incorrect name: ");
+                            System.out.println("Example: Vusal");
+                            surname = scanner.next();
+                        }
+                        student.setSurname(surname);
+                    }
+                    System.out.println("Do you want to change FatherName? 1 yes| 2 no");
+                    if (isChange()) {
+                        System.out.println("Enter FatherName: ");
+                        String fatherName = scanner.next();
+                        while (!Validation.nameValidation(fatherName)) {
+                            System.out.println("Incorrect name: ");
+                            System.out.println("Example: Vusal");
+                            fatherName = scanner.next();
+                        }
+                        student.setFathername(fatherName);
+                    }
+                    System.out.println("Do you want to change Email? 1 yes| 2 no");
+                    if (isChange()) {
+                        System.out.println("Enter Email: ");
+                        String mail = scanner.next();
+                        while (!Validation.mailValidation(mail)) {
+                            System.out.println("Incorrect mail: ");
+                            System.out.println("Example: vusalra@gmail.com");
+                            mail = scanner.next();
+                        }
+                        student.setEmail(mail);
+                    }
+                    System.out.println("Do you want to change PhoneNumber? 1 yes| 2 no");
+                    if (isChange()) {
+                        System.out.println("Enter Phone Number: ");
+                        String phoneNumber = scanner.next();
+                        while (!Validation.numberValidation(phoneNumber)) {
+                            System.out.println("Incorrect phone: ");
+                            System.out.println("Example: 994776090606");
+                            phoneNumber = scanner.next();
+                        }
+                        student.setPhoneNumber(phoneNumber);
+                    }
                 }
-                System.out.println("Do you want to change surname? 1 yes| 2 no");
-                if (isChange()) {
-                    System.out.println("Enter Student Surname: ");
-                    student.setSurname(scanner.next());
-                }
-                System.out.println("Do you want to change FatherName? 1 yes| 2 no");
-                if (isChange()) {
-                    System.out.println("Enter Student FatherName: ");
-                    student.setFathername(scanner.next());
-                }
-                System.out.println("Do you want to change Email? 1 yes| 2 no");
-                if (isChange()) {
-                    System.out.println("Enter Student Email: ");
-                    student.setEmail(scanner.next());
-                }
-                System.out.println("Do you want to change PhoneNumber? 1 yes| 2 no");
-                if (isChange()) {
-                    System.out.println("Enter Student PhoneNumber");
-                    student.setPhoneNumber(scanner.next());
-                }
-            }
 
+            }
+        }
+        catch (Exception e){
+            System.out.println("Incorrect value! We return you to the main page!");
+            return;
         }
 
         try {
@@ -198,15 +233,19 @@ public class CrudConsole {
     }
 
     public boolean isChange() {
-        int entered = scanner.nextInt();
-        if (entered == 1) {
-            return true;
-        } else if (entered == 2) {
-            System.out.println("No");
+        try{
+            int entered = scanner.nextInt();
+            if (entered == 1) {
+                return true;
+            } else if (entered == 2) {
+                System.out.println("No");
+                return false;
+            } else {
+                System.out.println("Enter correct option");
+                isChange();
+            }
+        }catch (Exception e){
             return false;
-        } else {
-            System.out.println("Enter correct option");
-            isChange();
         }
         return false;
     }
@@ -214,21 +253,21 @@ public class CrudConsole {
     public void searchMenu() {
         SearchStudent student = new SearchStudent(crud.students, scanner);
         System.out.println("1: Search with Name: | 2: Search with Surname | 3: Search with FatherName");
-        int menu = scanner.nextInt();
+            int menu = scanner.nextInt();
 
-        switch (menu) {
-            case 1:
-                student.findWithName();
-                break;
-            case 2:
-                student.findWithSurname();
-                break;
-            case 3:
-                student.findWithFatherName();
-                break;
-            default:
-                System.out.println("Enter Correct");
-                break;
+            switch (menu) {
+                case 1:
+                    student.findWithName();
+                    break;
+                case 2:
+                    student.findWithSurname();
+                    break;
+                case 3:
+                    student.findWithFatherName();
+                    break;
+                default:
+                    System.out.println("Enter Correct");
+                    break;
         }
 
     }
