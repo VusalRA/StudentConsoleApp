@@ -2,7 +2,8 @@ package console;
 
 import crud.Crud;
 import helper.RandomNumberGenerator;
-import helper.UpdateJson;
+import helper.SearchStudent;
+import helper.json.UpdateJson;
 import helper.Validation;
 import model.Student;
 
@@ -23,9 +24,10 @@ public class CrudConsole {
 
 
     public void consoleMenu() {
+        System.out.println("Choose a menu option: ");
         System.out.println("1: CRUD Menu");
         System.out.println("2: Search Menu");
-        System.out.println("Choose menu: ");
+
 
         int menu = scanner.nextInt();
 
@@ -34,6 +36,7 @@ public class CrudConsole {
                 crudMainConsole();
                 break;
             case 2:
+                searchMenu();
                 break;
         }
 
@@ -152,17 +155,33 @@ public class CrudConsole {
         int id = scanner.nextInt();
         for (Student student : crud.students) {
             if (student.getId() == id) {
-                System.out.println("Enter Student Name: ");
-                student.setName(scanner.next());
-                System.out.println("Enter Student Surname: ");
-                student.setSurname(scanner.next());
-                System.out.println("Enter Student FatherName: ");
-                student.setFathername(scanner.next());
-                System.out.println("Enter Student Email: ");
-                student.setEmail(scanner.next());
-                System.out.println("Enter Student PhoneNumber");
-                student.setPhoneNumber(scanner.next());
+                System.out.println("Do you want to change name? 1 yes| 2 no");
+                if (isChange()) {
+                    System.out.println("Enter Student Name: ");
+                    student.setName(scanner.next());
+                }
+                System.out.println("Do you want to change surname? 1 yes| 2 no");
+                if (isChange()) {
+                    System.out.println("Enter Student Surname: ");
+                    student.setSurname(scanner.next());
+                }
+                System.out.println("Do you want to change FatherName? 1 yes| 2 no");
+                if (isChange()) {
+                    System.out.println("Enter Student FatherName: ");
+                    student.setFathername(scanner.next());
+                }
+                System.out.println("Do you want to change Email? 1 yes| 2 no");
+                if (isChange()) {
+                    System.out.println("Enter Student Email: ");
+                    student.setEmail(scanner.next());
+                }
+                System.out.println("Do you want to change PhoneNumber? 1 yes| 2 no");
+                if (isChange()) {
+                    System.out.println("Enter Student PhoneNumber");
+                    student.setPhoneNumber(scanner.next());
+                }
             }
+
         }
 
         try {
@@ -177,5 +196,42 @@ public class CrudConsole {
     public void rCrud() {
         crud.getStudents();
     }
+
+    public boolean isChange() {
+        int entered = scanner.nextInt();
+        if (entered == 1) {
+            return true;
+        } else if (entered == 2) {
+            System.out.println("No");
+            return false;
+        } else {
+            System.out.println("Enter correct option");
+            isChange();
+        }
+        return false;
+    }
+
+    public void searchMenu() {
+        SearchStudent student = new SearchStudent(crud.students, scanner);
+        System.out.println("1: Search with Name: | 2: Search with Surname | 3: Search with FatherName");
+        int menu = scanner.nextInt();
+
+        switch (menu) {
+            case 1:
+                student.findWithName();
+                break;
+            case 2:
+                student.findWithSurname();
+                break;
+            case 3:
+                student.findWithFatherName();
+                break;
+            default:
+                System.out.println("Enter Correct");
+                break;
+        }
+
+    }
+
 
 }

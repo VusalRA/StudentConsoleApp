@@ -9,6 +9,7 @@ public class Crud {
 
     public List<Student> students = new ArrayList<>();
 
+
     public boolean addStudents(Student student) {
         return students.add(student);
     }

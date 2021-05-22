@@ -1,9 +1,9 @@
 import console.CrudConsole;
 import crud.Crud;
-import helper.ReadJson;
-import helper.UpdateJson;
+import helper.json.ReadJson;
+import helper.json.UpdateJson;
 
-public class Main {
+public class StudentConsoleApp {
 
     public static void main(String[] args) throws Exception {
 
@@ -14,6 +14,7 @@ public class Main {
         UpdateJson updateJson = new UpdateJson(crud);
         CrudConsole console = new CrudConsole(updateJson, crud);
         console.consoleMenu();
+
 
     }
 

@@ -1,4 +1,4 @@
-package helper;
+package helper.json;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
